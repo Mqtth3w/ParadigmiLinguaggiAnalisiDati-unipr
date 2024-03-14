@@ -1,4 +1,5 @@
 import dataclasses
+from typing import Union
 
 @dataclasses.dataclass
 class Sum:  # ~ struct, with init, repr… methods
@@ -15,19 +16,20 @@ class Negate:  # ~ struct, with init, repr… methods
     x: int
 
 
-def calculate(op):
+def calculate(op: Union[Product, Negate, Sum]) -> str:
+    result = ""
     match op:
         case Sum(x=x, y=y):
-            print("x + y = " + str(x+y))
+            result = "x + y = " + str(x+y)
         case Product(x=x, y=y):  # idiomatic: y=y
-            print("x * y = " + str(x*y))
+            result = "x * y = " + str(x*y)
         case Negate(x=x):  # idiomatic: x=x
-            print("x negate = " + str(-x))
+            result = "x negate = " + str(-x)
         case _ :
-            print("Not a stuff")
-            
+            result = "Not a stuff"
+    return result   
 
-calculate(Sum(1,1))
-calculate(Product(1,2))
-calculate(Negate(1))
-calculate("KO")
+print(calculate(Sum(1,1)))
+print(calculate(Product(1,2)))
+print(calculate(Negate(1)))
+print(calculate("KO"))
