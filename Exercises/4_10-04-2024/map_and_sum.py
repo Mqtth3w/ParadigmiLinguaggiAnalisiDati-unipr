@@ -15,7 +15,7 @@ for i in count(1):
         break
 print(tot)
 
-#v2 too weight to calculate
+#v2 too heavy to calculate
 #print(sum(i**2 for i in count(1) if multiple_any(i**2, [3, 5, 7]) and i**2 < 5000))
 
 
