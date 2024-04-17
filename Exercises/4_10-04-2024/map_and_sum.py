@@ -1,4 +1,4 @@
-from itertools import count
+from itertools import count, takewhile
 
 def multiple_any(x: int, ys: list[int]) -> bool:
     return any(map(lambda y: x%y == 0, ys))
@@ -18,7 +18,6 @@ print(tot)
 #v2 too heavy to calculate
 #print(sum(i**2 for i in count(1) if multiple_any(i**2, [3, 5, 7]) and i**2 < 5000))
 
-
 #generator
 def sum_gen(ys:list[int], lim:int):
     gen = 0
@@ -31,3 +30,7 @@ def sum_gen(ys:list[int], lim:int):
     
 for y in sum_gen([3, 5, 7], 5000):
     print(y)
+
+#prof
+print(sum(takewhile(lambda x: x < 5000, (y for i in count(1) if multiple_any(y := i**2, [3, 5, 7])))))
+
