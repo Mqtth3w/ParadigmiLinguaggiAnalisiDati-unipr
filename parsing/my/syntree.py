@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """syntree file
-@author  Michele Tomaiuolo - http://www.ce.unipr.it/people/tomamic
+@author  Matteo Gianvenuti - https://github.com/mqtth3w
 @license This software is free - http://www.gnu.org/licenses/gpl.html
 """
 
@@ -24,12 +24,14 @@ class TernaryOp(Expr):
     def prefix(self):
         true_expr = self._true_expr.prefix()
         false_expr = self._false_expr.prefix()
-        return f"if {self._cond} ? {true_expr} : {false_expr}"
+        cond = self._cond.prefix()
+        return f"{true_expr} if {cond} else {false_expr}"
 
     def infix(self):
-        true_expr = self._true_expr.prefix()
-        false_expr = self._false_expr.prefix()
-        return f"{true_expr} if {self._cond} else {false_expr}"
+        true_expr = self._true_expr.infix()
+        false_expr = self._false_expr.infix()
+        cond = self._cond.infix()
+        return f"if {cond} ? {true_expr} : {false_expr}"
 
     def eval(self, ctx):
         true_expr = self._true_expr.eval(ctx)
