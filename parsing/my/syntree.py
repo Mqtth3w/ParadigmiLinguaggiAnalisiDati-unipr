@@ -5,7 +5,7 @@
 """
 
 from operator import add, sub, mul, truediv, neg, pow
-ops = {"+": add, "-": sub, "*": mul, "/": truediv, "~": neg, "**": pow}
+ops = {"+": add, "-": sub, "*": mul, "/": truediv, "~": neg, "**": pow, "|x|": abs}
 
 class Expr:
     def prefix(self) -> str:

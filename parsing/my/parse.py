@@ -11,7 +11,7 @@ from syntree import *
 class Tokenizer:
     def __init__(self, text):
         #regex = r"\s*([A-Za-z0-9\.]+|.?)"
-        regex = r"\s*([A-Za-z0-9\.]+|\*{2}|.?)"   
+        regex = r"\s*([A-Za-z0-9\.]+|\*{2}|\|x\||.?)"   
         self._tokens = re.finditer(regex, text.rstrip())
         self._next = next(self._tokens)
 
@@ -32,10 +32,10 @@ class Tokenizer:
 # expr = term {( "+" | "-" ) term}
 # term = power {( "*" | "/" ) power}
 # power = factor {( "**" ) factor}
-# factor = "-" factor | "(" expr ")" | identifier | number
+# factor = "-" factor | "(" expr ")" | identifier | number | "|x|" factor 
 # (identifiers start with a letter, numbers are float)
 
-# stmt = expr | if expr ? expr : expr 
+# stmt = expr | if expr ? expr : expr | ":"name "=" expr 
 def stmt(tok: Tokenizer) -> Expr:
     if tok.peek() == "if":
         tok.consume("if")
@@ -45,6 +45,13 @@ def stmt(tok: Tokenizer) -> Expr:
         tok.consume(":")
         false_val = expr(tok)
         return TernaryOp(cond, true_val, false_val)
+    elif tok.peek() == ":":
+        tok.consume(":")
+        name = factor(tok)
+        tok.consume("=")
+        value = expr(tok)
+        update_ctx(name, value)
+        return value
     else:
         return expr(tok)
 
@@ -78,7 +85,7 @@ def power(tok: Tokenizer) -> Expr:
         x = BinaryOp(op, x, y)
     return x
 
-# factor = "-" factor | "(" expr ")" | identifier | number | factor "**" factor
+# factor = "-" factor | "(" expr ")" | identifier | number | "|x|" factor 
 def factor(tok: Tokenizer) -> Expr:
     nxt = tok.peek()
     if nxt == "-":
@@ -90,6 +97,10 @@ def factor(tok: Tokenizer) -> Expr:
         x = expr(tok)
         tok.consume(")")
         return x
+    elif nxt == "|x|":
+        tok.consume("|x|")
+        x = factor(tok)
+        return UnaryOp("|x|", x)
     elif nxt.isalpha(): # True if a-z or A-Z 
         tok.consume(nxt)
         return Var(nxt)
@@ -97,9 +108,14 @@ def factor(tok: Tokenizer) -> Expr:
         tok.consume(nxt)
         return Num(float(nxt))
 
-
+def update_ctx(name: Var, value: Expr):
+    global ctx
+    ctx[name.prefix()] = value.eval(ctx)
+    
+    
 # Tests
 def main():
+    global ctx
     ctx = {"w": 0.0, "x": 1.0, "y": 1.5, "z": 0.5}
 
     tests = [("(((1.5)))", "1.5", 1.5),
@@ -111,17 +127,22 @@ def main():
              ("x ** y", "** x y", 1.0),
              ("2.0 + 2.0 * x ** y", "+ 2.0 * 2.0 ** x y", 4.0),
              ("(x + w) ** (x + y)", "** + x w + x y", 1.0),
-             ("if 1.0 ? 60.0 : 20.0", "60.0 if 1.0 else 20.0", 60.0)]  
+             ("if 1.0 ? 60.0 : 20.0", "60.0 if 1.0 else 20.0", 60.0),
+             ("|x|(1.0 - 4.0)", "|x|- 1.0 4.0", 3.0),
+             (":x = 8.0", "8.0", 8.0),
+             (":uu = 5.0", "5.0", 5.0)]  
 
     for infix, prefix, val in tests:
         tok = Tokenizer(infix)
         #ast = expr(tok)
         ast = stmt(tok)
+        print("infix no ast:", infix, "prefix no ast:", prefix)
         print("infix:", ast.infix(), "prefix:", ast.prefix(), "eval:", ast.eval(ctx))
         tok.end()
         #print(ast.prefix(), "   ", prefix)
         assert ast.prefix() == prefix
         assert isclose(ast.eval(ctx), val)
-
+    print(ctx)
+    
 if __name__ == "__main__":
     main()
