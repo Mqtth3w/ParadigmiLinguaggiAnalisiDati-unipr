@@ -27,9 +27,6 @@ main = do
     checkRules contents
 
     putStrLn "---------- Done at all. ----------"
-    --print skyscrapers
-    --print gridDim
-    --print boardgame
 
 checkRules contents = do 
     let skyscrapers = map (map parseInt . words) (lines contents)
@@ -50,6 +47,9 @@ checkRules contents = do
     let checkThreeCols = and (ruleThree (init $ tail (transpose skyscrapers)))
     putStrLn "Is rule 3 respected? [rows,cols]"
     print [checkThreeRows,checkThreeCols]
+    --print skyscrapers
+    --print gridDim
+    --print boardgame
 
 parseInt :: String -> Int
 parseInt str = read str :: Int
