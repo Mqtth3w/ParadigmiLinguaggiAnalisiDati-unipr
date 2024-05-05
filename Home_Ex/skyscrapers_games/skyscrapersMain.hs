@@ -10,7 +10,28 @@ main = do
     putStrLn "3) The clues tell you how many skyscrapers you can see in that direction."
     putStrLn "3) You can't see a shorter skyscraper behind a taller one."
     --data
+    putStrLn "---------- skyscrapers-3x3.txt ----------"
     contents <- readFile "skyscrapers-3x3.txt"
+    checkRules contents
+
+    putStrLn "---------- skyscrapers-4x4.txt ----------"
+    contents <- readFile "skyscrapers-4x4.txt"
+    checkRules contents
+
+    putStrLn "---------- skyscrapers-5x5.txt ----------"
+    contents <- readFile "skyscrapers-5x5.txt"
+    checkRules contents
+
+    putStrLn "---------- skyscrapers-6x6.txt ----------"
+    contents <- readFile "skyscrapers-6x6.txt"
+    checkRules contents
+
+    putStrLn "---------- Done at all. ----------"
+    --print skyscrapers
+    --print gridDim
+    --print boardgame
+
+checkRules contents = do 
     let skyscrapers = map (map parseInt . words) (lines contents)
     let boardgame = map (init . tail) (init $ tail skyscrapers)
     let gridDim = length boardgame
@@ -29,9 +50,6 @@ main = do
     let checkThreeCols = and (ruleThree (init $ tail (transpose skyscrapers)))
     putStrLn "Is rule 3 respected? [rows,cols]"
     print [checkThreeRows,checkThreeCols]
-    --print skyscrapers
-    --print gridDim
-    --print boardgame
 
 parseInt :: String -> Int
 parseInt str = read str :: Int
