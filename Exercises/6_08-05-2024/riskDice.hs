@@ -19,9 +19,9 @@ playN n =
     let numDice = 3
     in 
     map (\iter ->
-        let a = launchDices 100 numDice
+        let a = launchDices 100 numDice --always the same
             d = launchDices 109 numDice
             aWin =  a > d
         in aWin) [1..n]
     
---prof 
+-- not very good, check prof file
