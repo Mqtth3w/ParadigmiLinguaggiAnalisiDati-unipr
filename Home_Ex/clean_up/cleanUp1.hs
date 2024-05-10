@@ -8,15 +8,18 @@ main = do
     playCleanUp initialMatrix cols rows
 
 playCleanUp matrix cols rows = do 
-    putStrLn "Matrix: "
+    putStrLn "Matrix:"
     print matrix
-    putStrLn "Insert the col index to play:"
-    x <- getLine
-    putStrLn "Insert the row index to play: "
-    y <- getLine
-    let i = (read x :: Int) + (read y :: Int) * cols
-    let m1 = purePlay (cols,rows) matrix i
-    playCleanUp m1 cols rows     
+    if and matrix then do 
+        putStrLn "You won!"
+    else do 
+        putStrLn "Insert the col index to play:"
+        x <- getLine
+        putStrLn "Insert the row index to play:"
+        y <- getLine
+        let i = (read x :: Int) + (read y :: Int) * cols
+        let m1 = purePlay (cols,rows) matrix i
+        playCleanUp m1 cols rows     
 
 purePlay :: (Int, Int) -> [Bool] -> Int -> [Bool]
 purePlay (cols,rows) matrix i = 
