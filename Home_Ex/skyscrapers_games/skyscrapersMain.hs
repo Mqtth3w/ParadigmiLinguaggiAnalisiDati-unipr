@@ -11,24 +11,21 @@ main = do
     putStrLn "3) You can't see a shorter skyscraper behind a taller one."
     --data
     putStrLn "---------- skyscrapers-3x3.txt ----------"
-    contents <- readFile "skyscrapers-3x3.txt"
-    checkRules contents
+    checkRules "skyscrapers-3x3.txt"
 
     putStrLn "---------- skyscrapers-4x4.txt ----------"
-    contents <- readFile "skyscrapers-4x4.txt"
-    checkRules contents
+    checkRules "skyscrapers-4x4.txt"
 
     putStrLn "---------- skyscrapers-5x5.txt ----------"
-    contents <- readFile "skyscrapers-5x5.txt"
-    checkRules contents
+    checkRules "skyscrapers-5x5.txt"
 
     putStrLn "---------- skyscrapers-6x6.txt ----------"
-    contents <- readFile "skyscrapers-6x6.txt"
-    checkRules contents
+    checkRules "skyscrapers-6x6.txt"
 
     putStrLn "---------- Done at all. ----------"
 
-checkRules contents = do 
+checkRules file = do 
+    contents <- readFile file
     let skyscrapers = map (map parseInt . words) (lines contents)
     let boardgame = map (init . tail) (init $ tail skyscrapers)
     let gridDim = length boardgame
@@ -50,7 +47,7 @@ checkRules contents = do
     --print skyscrapers
     --print gridDim
     --print boardgame
-
+    
 parseInt :: String -> Int
 parseInt str = read str :: Int
 
