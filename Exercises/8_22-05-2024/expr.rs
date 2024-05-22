@@ -1,5 +1,5 @@
 
-//not yet completed
+//not completed yet
 pub struct Num {
     val: i32,
 }
