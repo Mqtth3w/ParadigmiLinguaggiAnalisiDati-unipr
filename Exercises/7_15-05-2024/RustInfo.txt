@@ -1,0 +1,18 @@
+- create new project from terminal:
+cargo new <project name (is a folder name)>
+
+- Run from terminal:
+cd <project name (is a folder name)>
+cargo run
+
+- Source code available in:
+<project name (is a folder name)>/src
+
+- Open it in VS Code:
+Inside the directory <project name (is a folder name)> run in terminal: code . 
+
+- To run projects in VS Code add the extension "rust-analyzer" by The Rust Programming Language
+
+- To debug projects in VS Code add the extension "C/C++" by Microsoft
+
+- To run without a project execute "rustc <file name>.rs" then "./<file name>.rs"
