@@ -1,3 +1,4 @@
+
 use std::time::Instant;
 use rayon::prelude::*;
 
@@ -10,7 +11,7 @@ fn multiple_any_par(x: i64, ys: &[i64]) -> bool {
 }
 
 fn main() {
-    let sum_limit = 1000000000000;
+    let sum_limit = 10000000000;
     let multiples = [3, 5, 7];
     //sequential
     let mut start_time = Instant::now(); 
