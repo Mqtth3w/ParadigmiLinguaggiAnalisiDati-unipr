@@ -1,0 +1,6 @@
+[package]
+name = "multiple_any_par"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
