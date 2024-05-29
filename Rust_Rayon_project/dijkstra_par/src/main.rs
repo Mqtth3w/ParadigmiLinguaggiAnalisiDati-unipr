@@ -90,7 +90,7 @@ fn main() {
     let num_nodes = 1000;
     let mut rng = rand::thread_rng();
 
-    // Generate a graph with 1000 nodes
+    // Generate a graph with #num_nodes
     let graph: Vec<Node> = (0..num_nodes).map(|_| {
         let num_edges = rng.gen_range(1..10); // Each node has between 1 and 10 edges
         let edges = (0..num_edges).map(|_| {
