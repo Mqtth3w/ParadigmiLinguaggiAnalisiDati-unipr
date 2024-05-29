@@ -87,20 +87,20 @@ fn dijkstra_par(graph: &Vec<Node>, start: usize) -> Vec<u32> {
 }
 
 fn main() {
-    // Example graph: 0 --1--> 1 --2--> 2 --1--> 3
-    let graph = vec![
-        Node { edges: vec![Edge { node: 1, cost: 1 }] },
-        Node { edges: vec![Edge { node: 2, cost: 2 }] },
-        Node { edges: vec![Edge { node: 3, cost: 6 }] },
-        Node { edges: vec![Edge { node: 4, cost: 6 }] },
-        Node { edges: vec![Edge { node: 5, cost: 4 }] },
-        Node { edges: vec![Edge { node: 6, cost: 3 }] },
-        Node { edges: vec![Edge { node: 7, cost: 8 }] },
-        Node { edges: vec![Edge { node: 8, cost: 7 }] },
-        Node { edges: vec![Edge { node: 9, cost: 2 }] },
-        Node { edges: vec![Edge { node: 10, cost: 11 }] },
-        Node { edges: vec![] },
-    ];
+    let num_nodes = 1000;
+    let mut rng = rand::thread_rng();
+
+    // Generate a graph with 1000 nodes
+    let graph: Vec<Node> = (0..num_nodes).map(|_| {
+        let num_edges = rng.gen_range(1..10); // Each node has between 1 and 10 edges
+        let edges = (0..num_edges).map(|_| {
+            Edge {
+                node: rng.gen_range(0..num_nodes),
+                cost: rng.gen_range(1..20), // Cost between 1 and 20
+            }
+        }).collect();
+        Node { edges }
+    }).collect();
 
     let start_node = 0;
 
@@ -109,14 +109,14 @@ fn main() {
     let distances_seq = dijkstra_seq(&graph, start_node);
     let duration = start.elapsed();
     println!("Sequential execution time: {:?}", duration);
-    println!("Distances (sequential): {:?}", distances_seq);
+    println!("Distances (sequential): {:?}", &distances_seq[..10]); // Print first 10 distances
 
     // Parallel execution
     let start = Instant::now();
     let distances_par = dijkstra_par(&graph, start_node);
     let duration = start.elapsed();
     println!("Parallel execution time: {:?}", duration);
-    println!("Distances (parallel): {:?}", distances_par);
+    println!("Distances (parallel): {:?}", &distances_par[..10]); // Print first 10 distances
 
     // Optional: Compare results
     for (i, (d_seq, d_par)) in distances_seq.iter().zip(distances_par.iter()).enumerate() {
