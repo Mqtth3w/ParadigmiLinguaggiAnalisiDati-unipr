@@ -1,0 +1,79 @@
+
+
+PS C:\Users\MATTEO\Desktop\Paradigmi\Rust_Rayon_project\dijkstra_par> cargo build
+    Updating crates.io index
+   Compiling cfg-if v1.0.0
+   Compiling ppv-lite86 v0.2.17
+   Compiling getrandom v0.2.15
+   Compiling rand_core v0.6.4
+   Compiling rand_chacha v0.3.1
+   Compiling rand v0.8.5
+   Compiling dijkstra_par v0.1.0 (C:\Users\MATTEO\Desktop\Paradigmi\Rust_Rayon_project\dijkstra_par)
+error[E0599]: no method named `gen_range` found for struct `ThreadRng` in the current scope
+   --> src\main.rs:95:29
+    |
+95  |         let num_edges = rng.gen_range(1..10); // Each node has between 1 and 10 edges
+    |                             ^^^^^^^^^
+    |
+   ::: C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:129:8
+    |
+129 |     fn gen_range<T, R>(&mut self, range: R) -> T
+    |        --------- the method is available for `ThreadRng` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: there is a method `gen_ratio` with a similar name, but with different arguments
+   --> C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:299:5
+    |
+299 |     fn gen_ratio(&mut self, numerator: u32, denominator: u32) -> bool {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: trait `Rng` which provides `gen_range` is implemented but not in scope; perhaps you want to import it
+    |
+1   + use rand::Rng;
+    |
+
+error[E0599]: no method named `gen_range` found for struct `ThreadRng` in the current scope
+   --> src\main.rs:98:27
+    |
+98  |                 node: rng.gen_range(0..num_nodes),
+    |                           ^^^^^^^^^
+    |
+   ::: C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:129:8
+    |
+129 |     fn gen_range<T, R>(&mut self, range: R) -> T
+    |        --------- the method is available for `ThreadRng` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: there is a method `gen_ratio` with a similar name, but with different arguments
+   --> C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:299:5
+    |
+299 |     fn gen_ratio(&mut self, numerator: u32, denominator: u32) -> bool {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: trait `Rng` which provides `gen_range` is implemented but not in scope; perhaps you want to import it
+    |
+1   + use rand::Rng;
+    |
+
+error[E0599]: no method named `gen_range` found for struct `ThreadRng` in the current scope
+   --> src\main.rs:99:27
+    |
+99  |                 cost: rng.gen_range(1..20), // Cost between 1 and 20
+    |                           ^^^^^^^^^
+    |
+   ::: C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:129:8
+    |
+129 |     fn gen_range<T, R>(&mut self, range: R) -> T
+    |        --------- the method is available for `ThreadRng` here
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: there is a method `gen_ratio` with a similar name, but with different arguments
+   --> C:\Users\MATTEO\.cargo\registry\src\index.crates.io-6f17d22bba15001f\rand-0.8.5\src\rng.rs:299:5
+    |
+299 |     fn gen_ratio(&mut self, numerator: u32, denominator: u32) -> bool {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: trait `Rng` which provides `gen_range` is implemented but not in scope; perhaps you want to import it
+    |
+1   + use rand::Rng;
+    |
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `dijkstra_par` (bin "dijkstra_par") due to 3 previous errors
