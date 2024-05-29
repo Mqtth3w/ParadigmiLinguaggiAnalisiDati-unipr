@@ -1,5 +1,4 @@
 use std::collections::BinaryHeap;
-use std::collections::HashMap;
 use std::cmp::Ordering;
 use std::time::Instant;
 use rayon::prelude::*;
