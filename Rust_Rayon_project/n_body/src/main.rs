@@ -91,35 +91,37 @@ fn calculate_forces_par(bodies: &mut [Body], dt: f64) {
 }
 
 fn main() {
-    let n_bodies = 10000;
-    let mut bodies_seq: Vec<Body> = (0..n_bodies).map(|_| Body::new()).collect();
-    let mut bodies_par = bodies_seq.clone();
-    let dt = 0.01;
+    let all_n_bodies = [10, 100, 1_000, 10_000]; 
+    for n_bodies in all_n_bodies {
+        println!("N-Boies: {}", n_bodies);
+        let mut bodies_seq: Vec<Body> = (0..n_bodies).map(|_| Body::new()).collect();
+        let mut bodies_par = bodies_seq.clone();
+        let dt = 0.01;
 
-    // Sequential execution
-    let start = Instant::now();
-    calculate_forces_seq(&mut bodies_seq, dt);
-    let duration = start.elapsed();
-    println!("Sequential execution time: {:?}", duration);
+        // Sequential execution
+        let start = Instant::now();
+        calculate_forces_seq(&mut bodies_seq, dt);
+        let duration = start.elapsed();
+        println!("Sequential execution time: {:?}", duration);
 
-    // Parallel execution
-    let start = Instant::now();
-    calculate_forces_par(&mut bodies_par, dt);
-    let duration = start.elapsed();
-    println!("Parallel execution time: {:?}", duration);
-
-    // Optional: Compare results
-    for (i, (b_seq, b_par)) in bodies_seq.iter().zip(bodies_par.iter()).enumerate() {
-        assert!(
-            (b_seq.x - b_par.x).abs() < 1e-10 && (b_seq.y - b_par.y).abs() < 1e-10,
-            "Mismatch at body {}: seq ({:.10}, {:.10}), par ({:.10}, {:.10})",
-            i,
-            b_seq.x,
-            b_seq.y,
-            b_par.x,
-            b_par.y
-        );
+        // Parallel execution
+        let start = Instant::now();
+        calculate_forces_par(&mut bodies_par, dt);
+        let duration = start.elapsed();
+        println!("Parallel execution time: {:?}", duration);
+    
+        // Optional: Compare results
+        for (i, (b_seq, b_par)) in bodies_seq.iter().zip(bodies_par.iter()).enumerate() {
+            assert!(
+                (b_seq.x - b_par.x).abs() < 1e-10 && (b_seq.y - b_par.y).abs() < 1e-10,
+                "Mismatch at body {}: seq ({:.10}, {:.10}), par ({:.10}, {:.10})",
+                i,
+                b_seq.x,
+                b_seq.y,
+                b_par.x,
+                b_par.y
+            );
+        }
+        println!("The sequential and parallel results match.");
     }
-
-    println!("The sequential and parallel results match.");
 }
