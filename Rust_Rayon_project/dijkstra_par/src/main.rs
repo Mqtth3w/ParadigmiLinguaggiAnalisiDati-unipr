@@ -92,7 +92,14 @@ fn main() {
     let graph = vec![
         Node { edges: vec![Edge { node: 1, cost: 1 }] },
         Node { edges: vec![Edge { node: 2, cost: 2 }] },
-        Node { edges: vec![Edge { node: 3, cost: 1 }] },
+        Node { edges: vec![Edge { node: 3, cost: 6 }] },
+        Node { edges: vec![Edge { node: 4, cost: 6 }] },
+        Node { edges: vec![Edge { node: 5, cost: 4 }] },
+        Node { edges: vec![Edge { node: 6, cost: 3 }] },
+        Node { edges: vec![Edge { node: 7, cost: 8 }] },
+        Node { edges: vec![Edge { node: 8, cost: 7 }] },
+        Node { edges: vec![Edge { node: 9, cost: 2 }] },
+        Node { edges: vec![Edge { node: 10, cost: 11 }] },
         Node { edges: vec![] },
     ];
 
