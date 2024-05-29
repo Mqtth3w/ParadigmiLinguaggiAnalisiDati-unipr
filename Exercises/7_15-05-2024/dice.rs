@@ -1,6 +1,6 @@
 
 
-
+//Not completed 
 fn main() {
     use std::io::*;
     println!("What's your name?");
