@@ -37,18 +37,18 @@ fn estimate_pi_par(samples: u64) -> f64 {
 }
 
 fn main() {
-    let samples = [100, 500_000, 1_000_000, 3_000_000, 5_000_000];
-    for num in samples {
-        println!("Samples: {}", num);
+    let all_samples = [100, 500_000, 1_000_000, 3_000_000, 5_000_000];
+    for samples in all_samples {
+        println!("Samples: {}", samples);
         //execute sequential
         let mut start = Instant::now();
-        let mut pi = estimate_pi_seq(num);
+        let mut pi = estimate_pi_seq(samples);
         let mut duration = start.elapsed();
         println!("Estimated Pi (sequential): {}", pi);
         println!("Time taken: {:?}", duration);
         //execute parallel
         start = Instant::now();
-        pi = estimate_pi_par(num);
+        pi = estimate_pi_par(samples);
         duration = start.elapsed();
         println!("Estimated Pi (parallel): {}", pi);
         println!("Time taken: {:?}", duration);
