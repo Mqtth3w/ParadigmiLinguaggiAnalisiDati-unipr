@@ -1,6 +1,7 @@
 use std::collections::BinaryHeap;
 use std::cmp::Ordering;
 use std::time::Instant;
+use rand::Rng;
 use rayon::prelude::*;
 
 #[derive(Debug, Clone)]
