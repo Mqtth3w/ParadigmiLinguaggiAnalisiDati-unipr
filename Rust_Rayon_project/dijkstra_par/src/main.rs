@@ -93,7 +93,7 @@ fn main() {
 
     // Generate a graph with #num_nodes
     let graph: Vec<Node> = (0..num_nodes).map(|_| {
-        let num_edges = rng.gen_range(1..10); // Each node has between 1 and 10 edges
+        let num_edges = rng.gen_range(50..500); // Each node has between 1 and 10 edges
         let edges = (0..num_edges).map(|_| {
             Edge {
                 node: rng.gen_range(0..num_nodes),
