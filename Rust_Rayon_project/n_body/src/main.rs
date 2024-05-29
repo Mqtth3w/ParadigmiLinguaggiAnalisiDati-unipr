@@ -91,7 +91,7 @@ fn calculate_forces_par(bodies: &mut [Body], dt: f64) {
 }
 
 fn main() {
-    let n_bodies = 1000;
+    let n_bodies = 10000;
     let mut bodies_seq: Vec<Body> = (0..n_bodies).map(|_| Body::new()).collect();
     let mut bodies_par = bodies_seq.clone();
     let dt = 0.01;
