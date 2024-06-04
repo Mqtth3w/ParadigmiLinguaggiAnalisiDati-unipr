@@ -19,12 +19,12 @@ fn main() {
     let mut elapsed_time = start_time.elapsed();
     println!("Total: {}", sum); 
     println!("Sequential time: {:?}", elapsed_time); 
-    //parallel (is not really parallel the seq is faster)
+    //parallel
     start_time = Instant::now(); 
     let sum_par: i64 = (1..1000000000000000)
-        .into_par_iter() //not working, not feasible in //
+        .into_par_iter()
         .map(|x| x * x)
-        .take_while(|&sqx| sqx < sum_limit)
+        .take_while(|&sqx| sqx < sum_limit) //not working, not feasible in //
         .filter(|&sqx| multiple_any(sqx, &multiples))  
         .sum();
     elapsed_time = start_time.elapsed();
