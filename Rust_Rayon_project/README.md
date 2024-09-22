@@ -1,11 +1,11 @@
 ## How to build and run a project?
 Execute the following commands in your terminal
-```bash
+```cmd
 cd <path/to/the/project/directory>
 ```
-```bash
+```cmd
 cargo build
 ```
-```bash
+```cmd
 cargo run
 ```
